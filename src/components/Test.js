@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-const { Octokit } = require("@octokit/core");
 
 function Test() {
 
@@ -7,13 +6,9 @@ function Test() {
 
     async function getCommits () {
 
-        const octokit = new Octokit({ auth: `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` });
-
-        const response = await octokit.request('GET /repos/{owner}/{repo}/commits', {
-            owner: 'AleSaezDH',
-            repo: 'fulltimeforce'
-          });
-          setShowCommit(response.data.map(value => {return {title : value.commit.message}}));
+        const response = await fetch('https://api.github.com/repos/AleSaezDH/fulltimeforce/commits')
+          .then(data => data.json())
+          .then(response => setShowCommit(response.map(value => {return {title : value.commit.message}})));
     }
 
     useEffect(() => {
