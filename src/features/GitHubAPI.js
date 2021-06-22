@@ -22,7 +22,6 @@ function Test() {
 
     return (
         <div>
-            <h1>Test</h1>
             {modal && showCommit.map(value => {
                 return <div style={{border:'1px solid black', marginBottom:10}}>
                 <a target='_blank' href={value.url}>

@@ -1,46 +1,39 @@
 import React, { useEffect, useState } from 'react';
 import {useSelector, useDispatch} from 'react-redux';
-import ProductCard from './ProductCard';
 import {getAllProducts, getCategory} from '../Middlewares';
 import {useParams, Link} from 'react-router-dom';
+import MappingState from './MappingState';
 
 function ProductsContainer() {
 
     const products = useSelector(state => state.products);
     const dispatch = useDispatch();
-    const [page, setPage] = useState(0);
     const {category} = useParams();
     const {subcategory} = useParams();
     const {id} = useParams();
-
-    console.log(products);
+    const [offset, setOffset] = useState(0);
+    const limit = 20;
 
     useEffect(() => {
         if (category) {
-            dispatch(getCategory(category, subcategory, id, page));
+            dispatch(getCategory(category, subcategory, id));
         } else {
-            dispatch(getAllProducts(page));
+            dispatch(getAllProducts(offset, limit));
         }
-    }, [page, category, subcategory, id]);
+    }, [offset, subcategory, id]);
     
     const handleBackButton = () => {
-        setPage(page - 20);
+        setOffset(offset - 20);
     }
 
     const handleNextButton = () => {
-        setPage(page + 20);
+        setOffset(offset + 20);
     }
 
     return (<>
-        {products.map((product) => {
-            return product.results.map((data, index) => {
-                return <>
-                    <ProductCard key={index} data={data}/>
-                </>
-            });
-        })}
-        {page >= 20 && <button onClick={handleBackButton}>Anterior</button>}
-        {page < 80 && <button onClick={handleNextButton}>Siguiente</button>}
+        <MappingState products={products}/>
+        {offset >= 20 && <button onClick={handleBackButton}>Anterior</button>}
+        {offset < 80 && <button onClick={handleNextButton}>Siguiente</button>}
         </>
     )
 }

@@ -1,12 +1,23 @@
-import React from 'react'
+import React, { useState } from 'react'
 
-function ButtonCounter() {
+function ButtonCounter({productToBuy}) {
+
+    const [quantity, setQuantity] = useState(1);
+
+    const handlePlusButton = () => {
+        return setQuantity(quantity + 1)
+    }
+
+    const handleMinusButton = () => {
+        return quantity > 1 ? setQuantity(quantity - 1) : false;
+    }
+
     return (
         <>
-        <button>-</button>
-        <p>Cantidad</p>
-        <button>+</button>
-        <button>Comprar</button>
+        <button onClick={handleMinusButton}>-</button>
+        <p>{quantity}</p>
+        <button onClick={handlePlusButton}>+</button>
+        <button onClick={() => productToBuy(quantity)}>Comprar</button>
         </>
     )
 }

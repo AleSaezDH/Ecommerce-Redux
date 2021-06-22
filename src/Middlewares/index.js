@@ -16,10 +16,10 @@ const fetchApi = (offset = 0, limit = 100) => {
     });
 }
 
-export const getAllProducts = (offset) => {
+export const getAllProducts = (offset, limit) => {
     return (dispatch) => {
         try {
-            fetchApi(offset, 20).then(data => {
+            fetchApi(offset, limit).then(data => {
                 dispatch({type: 'products/get', payload: data});
             });
         } catch (error) {
@@ -28,23 +28,23 @@ export const getAllProducts = (offset) => {
     }
     }
 
-export const getCategory = (category, subcategory, value, offset) => {
+export const getCategory = (category, subcategory, value) => {
     return (dispatch) => {
         if (category === 'memory') {
             if (subcategory === 'ram') {
-                dispatch(getRamMemoryCategory(subcategory, value, offset));
+                dispatch(getRamMemoryCategory(subcategory, value));
             } else if (subcategory === 'internal') {
-                dispatch(getInternalMemoryCategory(subcategory, value, offset));
+                dispatch(getInternalMemoryCategory(subcategory, value));
             }
         } else if (category === 'camera') {
-            dispatch(getCameraCategory(subcategory, value, offset));
+            dispatch(getCameraCategory(subcategory, value));
         } else if (category === 'protection') {
-            dispatch(getProtectionCategory(subcategory, value, offset));
+            dispatch(getProtectionCategory(subcategory, value));
         }
     }
 }
 
-export const getRamMemoryCategory = (subcategory, value, offset) => {
+export const getRamMemoryCategory = (subcategory, value) => {
     return async (dispatch) => {
         try {
             fetchApi().then(response => {
@@ -60,7 +60,7 @@ export const getRamMemoryCategory = (subcategory, value, offset) => {
     }
 }
 
-export const getInternalMemoryCategory = (subcategory, value, offset) => {
+export const getInternalMemoryCategory = (subcategory, value) => {
     return async (dispatch) => {
         try {
             fetchApi().then(response => {
@@ -77,7 +77,7 @@ export const getInternalMemoryCategory = (subcategory, value, offset) => {
     }
 }
 
-export const getCameraCategory = (subcategory, value, offset) => {
+export const getCameraCategory = (subcategory, value) => {
     return async (dispatch) => {
         try {
             fetchApi().then(response => {
@@ -94,7 +94,7 @@ export const getCameraCategory = (subcategory, value, offset) => {
     }
 }
 
-export const getProtectionCategory = (subcategory, value, offset) => {
+export const getProtectionCategory = (subcategory, value) => {
     return async (dispatch) => {
         try {
             fetchApi().then(response => {
