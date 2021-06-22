@@ -10,7 +10,6 @@ function ProductCard({data}) {
         <br />
         <p>$ {data.price}</p>
         <Link to={`/products/${data.id}`}>Ver más</Link>
-        <ButtonCounter />
         </>
     )
 }

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import {useSelector, useDispatch} from 'react-redux';
-import {getAllProducts, getCategory} from '../Middlewares';
+import {getAllProducts, getCategory} from '../Middlewares/productsMdws';
 import {useParams, Link} from 'react-router-dom';
 import MappingState from './MappingState';
 

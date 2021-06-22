@@ -1,7 +1,8 @@
 import React, {useState, useEffect} from 'react';
 import {useSelector, useDispatch, shallowEqual} from 'react-redux';
 import {useParams} from 'react-router-dom';
-import {getAllProducts} from '../Middlewares';
+import {getAllProducts} from '../Middlewares/productsMdws';
+import {addProduct} from '../Middlewares/cartMdws';
 import ButtonCounter from './ButtonCounter';
 
 function ProductDetail() {
@@ -23,8 +24,14 @@ function ProductDetail() {
 
     if(Object.keys(product).length === 0) {return <h1>Loading</h1>}
 
-    const productToBuy = (value) => {
-
+    const productToBuy = (quantity) => {
+        const productData = {
+            name: product.name,
+            id: product.id,
+            price: product.price,
+            quantity
+        };
+        dispatch(addProduct(productData));
     }
 
     return (

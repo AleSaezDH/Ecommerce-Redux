@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import home from '../images/home.png';
-import {getAllProducts} from '../Middlewares';
+import {getAllProducts} from '../Middlewares/productsMdws';
 import MappingState from './MappingState';
 import {Link} from 'react-router-dom';
 import HomeNavbar from './HomeNavbar';
