@@ -1,8 +1,10 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import logo from '../images/logo.png';
+import CartLink from './CartLink';
 
 function Navbar() {
+
     return (
         <ul>
             <Link to='/'><img src={logo}/></Link>
@@ -15,8 +17,8 @@ function Navbar() {
             <Link to={`/categories/camera/main/13`}>13 px de resolucion de la camara</Link><br />
             <Link to={`/categories/camera/main/16`}>16 px de resolucion de la camara</Link><br />
             <Link to={`/categories/protection/waterproof/yes`}>Resistente al agua</Link><br />
-            <Link to='/cart'>Carrito</Link><br />
-            <Link to='/products'>Productos</Link>
+            <Link to='/products'>Productos</Link><br />
+            <CartLink />
         </ul>
     )
 }

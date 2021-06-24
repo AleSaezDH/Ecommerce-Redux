@@ -1,5 +1,9 @@
 import {db} from '../firebase';
 
+const saveOnLocalStorage = (actualCart) => {
+    localStorage.setItem('FullTimeForceTest', JSON.stringify(actualCart));
+}
+
 export const addProduct = (product) => {
     return async (dispatch, getState) => {
         const cartState = getState().cart;
@@ -10,10 +14,34 @@ export const addProduct = (product) => {
             let copy = {...exist};
             copy.quantity = product.quantity + copy.quantity;
             copyState[index] = copy;
-            dispatch({type: 'cart/addProduct', payload: copyState});
+            await dispatch({type: 'cart/addProduct', payload: copyState});
+            saveOnLocalStorage(copyState);
         } else {
-            dispatch({type: 'cart/addProduct', payload: [...copyState, product]});
+            let finalCart = [...copyState, product];
+            await dispatch({type: 'cart/addProduct', payload: finalCart});
+            saveOnLocalStorage(finalCart);
         }
-        console.log(cartState);
     }
+}
+
+export const getProductsFromLocalStorage = (dispatch) => {
+    let cart = localStorage.getItem('FullTimeForceTest');
+    if (cart) {
+        dispatch({type: 'cart/addProduct', payload: JSON.parse(cart)});
+    }
+}
+
+export const deleteProduct = (id) => {
+    return async (dispatch, getState) => {
+        const cartState = getState().cart;
+        const copyState = [...cartState];
+        let products = copyState.filter(data => data.id != id);
+        await dispatch({type: 'cart/addProduct', payload: products});
+        saveOnLocalStorage(products);
+    }
+}
+
+export const emptyCart = (dispatch) => {
+    localStorage.removeItem('FullTimeForceTest');
+    dispatch({type: 'cart/empty'});
 }
