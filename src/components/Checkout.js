@@ -1,10 +1,9 @@
-import React from 'react'
+import React from 'react';
+import {idFirebase} from '../Middlewares/cartMdws';
 
 function Checkout() {
     return (
-        <div>
-            
-        </div>
+        <h1>{idFirebase}</h1>
     )
 }
 

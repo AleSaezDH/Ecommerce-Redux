@@ -45,3 +45,12 @@ export const emptyCart = (dispatch) => {
     localStorage.removeItem('FullTimeForceTest');
     dispatch({type: 'cart/empty'});
 }
+
+export let idFirebase;
+export const finishBuy = (cart) => {
+    return async (dispatch) => {
+        await db.collection('cart').add({cart}).then(({id}) => idFirebase = id);
+        await dispatch({type: 'cart/addProduct', payload: []});
+        localStorage.removeItem('FullTimeForceTest');
+    }
+}

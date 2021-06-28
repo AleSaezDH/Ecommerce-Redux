@@ -6,6 +6,7 @@ import ProductDetail from './components/ProductDetail';
 import Cart from './components/Cart';
 import Checkout from './components/Checkout';
 import Test from './features/GitHubAPI';
+import ConditionalRoute from './components/ConditionalRoute';
 
 function App() {
   return (
@@ -17,7 +18,7 @@ function App() {
           <Route exact path='/categories/:category/:subcategory/:id' component={ProductsContainer}/>
           <Route exact path='/products/:id' component={ProductDetail}/>
           <Route exact path='/cart' component={Cart}/>
-          <Route exact path='/checkout' component={Checkout}/>
+          <ConditionalRoute exact path='/checkout' component={Checkout}/>
         </Switch>
       <Test />
     </BrowserRouter>

@@ -10,22 +10,22 @@ function ProductDetail() {
 
     const products = useSelector(state => state.products, shallowEqual);
     const dispatch = useDispatch();
-    const [product, setProduct] = useState({});
+    const [product, setProduct] = useState([]);
     const [showSideCart, setShowSideCart] = useState(false);
     const {id} = useParams();
     const limit = 100;
     const offset = 0;
 
-    useEffect(async() => {
-        await dispatch(getProductsFromLocalStorage);
+    useEffect(() => {
+        dispatch(getProductsFromLocalStorage);
         if (products.length !== 0) {
             products.filter(data => setProduct(data.results.find(x => x.id === id)));
         } else {
             dispatch(getAllProducts(offset, limit));
         }
     }, [products]);
-
-    if(Object.keys(product).length === 0) {return <h1>Loading</h1>}
+    
+    if(product.length === 0) {return <h1>Loading</h1>}
 
     const productToBuy = (quantity) => {
         setShowSideCart(true);

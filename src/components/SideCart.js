@@ -1,11 +1,13 @@
 import React from 'react';
-import {useSelector} from 'react-redux';
+import {useSelector, shallowEqual} from 'react-redux';
 import DeleteButton from './DeleteButton';
 import EmptyCartButton from './EmptyCartButton';
+import {useHistory} from 'react-router-dom';
 
 function SideCart() {
 
-    const cartState = useSelector(state => state.cart);
+    const cartState = useSelector(state => state.cart, shallowEqual);
+    const history = useHistory();
 
     return (
         <>
@@ -19,6 +21,7 @@ function SideCart() {
                 <EmptyCartButton />
             </div>
         })}
+        <button onClick={history.push('/cart')}>Continuar</button>
         </>
     )
 }
