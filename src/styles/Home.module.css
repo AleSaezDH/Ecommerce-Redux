@@ -1,0 +1,15 @@
+#logo {
+    width: 100%;
+}
+
+#divTitles {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 40px 60px;
+}
+
+#samsungHref {
+    display: flex;
+    justify-content: center;
+}

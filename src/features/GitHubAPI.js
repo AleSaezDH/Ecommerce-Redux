@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from 'react';
+import styles from '../styles/CommitsHistoryButton.module.css';
+import { Button, Modal, List, Card } from 'antd';
+import { GithubOutlined } from '@ant-design/icons';
 
 function Test() {
 
     const [showCommit, setShowCommit] = useState([{author: '', message: '', date: '', url: ''}]);
-    const [modal, setModal] = useState(false);
+    const [isModalVisible, setIsModalVisible] = useState(false);
 
     async function getCommits () {
 
@@ -17,23 +20,34 @@ function Test() {
     }, [showCommit]);
 
     const handleClick = () => {
-        !modal ? setModal(true) : setModal(false);
+        setIsModalVisible(true);
     }
+    
+    const handleOk = () => {
+    setIsModalVisible(false);
+    };
+    
+    const handleCancel = () => {
+    setIsModalVisible(false);
+    };
 
-    return (
-        <div>
-            {modal && showCommit.map(value => {
-                return <div style={{border:'1px solid black', marginBottom:10}}>
-                <a target='_blank' href={value.url}>
-                <p>Author: {value.author}</p>
-                <p>Message: {value.message}</p>
-                <p>GitHub date: {value.date}</p>
-                </a>
-                </div>
-            })}
-            <button onClick={handleClick}>Commits history</button>
-        </div>
+    return (<>
+    <Button type="primary" onClick={handleClick} id={styles.commitsButton}>Commits history</Button>
+    <Modal title="Click to see the commit on GitHub" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel} style={{ top:20 }}>
+        <List itemLayout="horizontal" dataSource={showCommit} renderItem={item => (
+            <Card hoverable id={styles.modalCard}>
+            <a target='_blank' href={item.url}>
+            <List.Item>
+                <List.Item.Meta title={`Message: ${item.message}`} description={<><p>Author: {item.author}</p> <p>GitHub date: {item.date}</p></>} avatar={<GithubOutlined style={{fontSize: 25, paddingTop: 5}}/>} />
+            </List.Item>
+            </a>
+            </Card>
+        )}
+        />
+    </Modal>
+    </>
     )
 }
 
 export default Test;
+//<p>GitHub date: {value.date}</p>

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import {Link} from 'react-router-dom';
 import {useSelector, shallowEqual, useDispatch} from 'react-redux';
 import {getProductsFromLocalStorage} from '../Middlewares/cartMdws';
+import { Badge } from 'antd';
 
 function CartLink() {
 
@@ -21,7 +22,10 @@ function CartLink() {
             setTotalQuantity(0);
         }
     }, [cartState]);
-    return (<Link to='/cart'>Carrito {totalQuantity}</Link>)
+
+    return <>
+    {totalQuantity > 0 ? <Badge count={totalQuantity} offset={[12]}><Link to='/cart'>Cart</Link></Badge> : <Link to='/cart'>Cart</Link>}
+    </>
 }
 
 export default CartLink

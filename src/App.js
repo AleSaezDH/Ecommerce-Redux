@@ -1,4 +1,5 @@
 import {BrowserRouter, Switch, Route} from 'react-router-dom';
+import 'antd/dist/antd.css';
 import Home from './components/Home';
 import Navbar from './components/Navbar';
 import ProductsContainer from './components/ProductsContainer';
