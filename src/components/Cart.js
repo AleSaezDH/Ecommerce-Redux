@@ -1,10 +1,11 @@
 import React, {useEffect} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
-import DeleteButton from './DeleteButton';
 import EmptyCartButton from './EmptyCartButton';
-import {finishBuy, getProductsFromLocalStorage} from '../Middlewares/cartMdws';
+import {finishBuy, getProductsFromLocalStorage, deleteProduct} from '../Middlewares/cartMdws';
 import {useHistory} from 'react-router-dom';
-import { List, Avatar, Space } from 'antd';
+import styles from '../styles/Cart.module.css';
+import { List, Button, Typography } from 'antd';
+const { Title } = Typography;
 
 function Cart() {
 
@@ -20,22 +21,31 @@ function Cart() {
         dispatch(finishBuy(cartState));
         history.push('/checkout');
     }
-    
+
+    const amount = cartState.map(value => value.price * value.quantity);
+    const total = amount.reduce((firstValue, secondValue) => {
+        return firstValue + secondValue;
+    }, 0);
+
     return (
-        <List itemLayout="vertical" size="large" dataSource={cartState}
+        <List itemLayout="horizontal" dataSource={cartState} id={styles.list}
         footer={
-        <div>
-            {cartState.length > 0 && <><EmptyCartButton /> <button onClick={handleClick}>Terminar compra</button></>}
-        </div>
-        }
+            <div id={styles.footer}>
+                <Title level={4}>Total: ${total}</Title>
+                {cartState.length > 0 && <div><EmptyCartButton /> <Button type="primary" onClick={handleClick}>Terminar compra</Button></div>}
+            </div>
+            }
         renderItem={item => (
-            <List.Item key={item.id}
-                actions={[ <DeleteButton id={item.id}/> ]}
-                extra={<img width={272} src={item.picture} />} >
-                    <List.Item.Meta title={item.name} description={`Cantidad: ${item.quantity}`} />
-                {`$ ${item.price}`}
+            <List.Item id={styles.listItem}>
+                <List.Item.Meta
+                    avatar={<img src={item.picture} id={styles.cartImage}/>}
+                    title={item.name}
+                    description={<div><p>Quantity: {item.quantity}</p> <p>Price: ${item.price}</p></div>}
+                />
+                <Button onClick={() => dispatch(deleteProduct(item.id))} id={item.id}>Delete</Button>
             </List.Item>
-        )} />
+        )}
+        />
     )
 }
 
