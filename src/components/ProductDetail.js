@@ -5,13 +5,15 @@ import {getAllProducts} from '../Middlewares/productsMdws';
 import {addProduct, getProductsFromLocalStorage} from '../Middlewares/cartMdws';
 import ButtonCounter from './ButtonCounter';
 import SideCart from './SideCart';
+import styles from '../styles/ProductDetail.module.css';
+import { Typography, Descriptions  } from 'antd';
+const { Title } = Typography;
 
 function ProductDetail() {
 
     const products = useSelector(state => state.products, shallowEqual);
     const dispatch = useDispatch();
     const [product, setProduct] = useState([]);
-    const [showSideCart, setShowSideCart] = useState(false);
     const {id} = useParams();
     const limit = 100;
     const offset = 0;
@@ -28,7 +30,6 @@ function ProductDetail() {
     if(product.length === 0) {return <h1>Loading</h1>}
 
     const productToBuy = (quantity) => {
-        setShowSideCart(true);
         const productData = {
             name: product.name,
             id: product.id,
@@ -40,15 +41,26 @@ function ProductDetail() {
     }
 
     return (
-        <>
-        <h1>{product.name}</h1>
-        <h3>{product.price}</h3>
-        {product.pictures.map((picture, index) => {
-            return <img key={index} src={picture.url}/>
-        })}
-        <ButtonCounter productToBuy={productToBuy}/>
-        {showSideCart && <SideCart />}
-        </>
+        <div id={styles.divContainer}>
+        <Title level={3} id={styles.title}>{product.name}</Title>
+        <div id={styles.imagesAndCounter}>
+            {product.pictures.map((picture, index) => {
+                return <div>
+                    <img key={index} src={picture.url} id={styles.images}/>
+                </div>
+            })}
+            <div>
+                <h3>$ {product.price}</h3>
+                <ButtonCounter productToBuy={productToBuy}/>
+            </div>
+        </div>
+        <Descriptions bordered >
+            {product.attributes.map(data => {
+                return <Descriptions.Item span={2} label={data.name}>{data.value_name}</Descriptions.Item>
+            })}
+        </Descriptions>
+        <SideCart />
+        </div>
     )
 }
 

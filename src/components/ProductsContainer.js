@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import {getAllProducts, getCategory} from '../Middlewares/productsMdws';
-import {useParams, Link} from 'react-router-dom';
+import {useParams} from 'react-router-dom';
 import MappingState from './MappingState';
+import styles from '../styles/ProductsContainer.module.css';
+import { Button } from 'antd';
 
 function ProductsContainer() {
 
@@ -30,11 +32,13 @@ function ProductsContainer() {
         setOffset(offset + 20);
     }
 
-    return (<>
+    return (<div id={styles.productsDiv}>
         <MappingState products={products}/>
-        {offset >= 20 && <button onClick={handleBackButton}>Anterior</button>}
-        {offset < 80 && <button onClick={handleNextButton}>Siguiente</button>}
-        </>
+        <div id={styles.paginationButtons}>
+            {offset >= 20 && <Button type="primary" onClick={handleBackButton}>Anterior</Button>}
+            {offset < 80 && <Button type="primary" onClick={handleNextButton}>Siguiente</Button>}
+        </div>
+        </div>
     )
 }
 

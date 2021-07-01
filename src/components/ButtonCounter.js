@@ -1,25 +1,23 @@
 import React, { useState } from 'react';
-import {useSelector} from 'react-redux';
+import { Button, InputNumber } from 'antd';
+import styles from '../styles/ButtonCounter.module.css';
+import {useDispatch} from 'react-redux';
 
 function ButtonCounter({productToBuy}) {
 
     const [quantity, setQuantity] = useState(1);
+    const dispatch = useDispatch();
 
-    const handlePlusButton = () => {
-        return setQuantity(quantity + 1)
-    }
-
-    const handleMinusButton = () => {
-        return quantity > 1 ? setQuantity(quantity - 1) : false;
+    const handleBuy = () => {
+        dispatch({type: 'sideCart/visibility', payload: true});
+        productToBuy(quantity);
     }
 
     return (
-        <>
-        <button onClick={handleMinusButton}>-</button>
-        <p>{quantity}</p>
-        <button onClick={handlePlusButton}>+</button>
-        <button onClick={() => productToBuy(quantity)}>Comprar</button>
-        </>
+        <div id={styles.divCounterContainer}>
+        <InputNumber size="large" min={1} max={100000} defaultValue={1} onChange={(value) => setQuantity(value)}/>
+        <Button size='large' type="primary" onClick={handleBuy}>Comprar</Button>
+        </div>
     )
 }
 

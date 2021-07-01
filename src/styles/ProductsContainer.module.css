@@ -1,0 +1,9 @@
+#productsDiv {
+    margin: 50px 0;
+}
+
+#paginationButtons {
+    display: flex;
+    justify-content: space-around;
+    margin: 50px 550px;
+}

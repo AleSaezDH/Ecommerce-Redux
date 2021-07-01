@@ -1,27 +1,44 @@
 import React from 'react';
-import {useSelector, shallowEqual} from 'react-redux';
+import {useSelector, useDispatch, shallowEqual} from 'react-redux';
 import DeleteButton from './DeleteButton';
 import EmptyCartButton from './EmptyCartButton';
 import {useHistory} from 'react-router-dom';
+import { Drawer, Button, Card, List } from 'antd';
+import styles from '../styles/SideCart.module.css';
 
 function SideCart() {
 
     const cartState = useSelector(state => state.cart, shallowEqual);
+    const visibilitySideCart = useSelector(state => state.sideCart);
+    const dispatch = useDispatch();
     const history = useHistory();
+  
+    const onClose = () => {
+      dispatch({type: 'sideCart/visibility', payload: false});
+    };
 
-    return (
-        <>
-        {cartState.map(product => {
-            return <div key={product.id}>
-                <h3>{product.name}</h3>
-                <img src={product.picture}/>
-                <p>{product.quantity}</p>
-                <p>$ {product.price}</p>
-                <DeleteButton id={product.id}/>
-                <EmptyCartButton />
+    return (<>
+        {visibilitySideCart && <Drawer style={{display:'flex', justifyContent:'center'}} title="Cart" placement="right" closable={false} onClose={onClose} visible={visibilitySideCart} width={600} footer={
+            <div>
+              <EmptyCartButton />
+              <Button type='primary' onClick={() => history.push('/cart')} id={styles.continueButton}>Continuar</Button>
             </div>
-        })}
-        <button onClick={history.push('/cart')}>Continuar</button>
+          }>
+        <List itemLayout="horizontal" dataSource={cartState} renderItem={item => (
+            <Card hoverable={false} bordered={false} id={styles.card}>
+                <Card.Grid id={styles.cardGrid}>
+                    <List.Item>
+                        <List.Item.Meta
+                            avatar={<img src={item.picture} id={styles.drawerImage}/>}
+                            title={item.name}
+                            description={`cantidad: ${item.quantity}`}
+                        />
+                        <DeleteButton id={item.id}/>
+                    </List.Item>
+                </Card.Grid>
+            </Card>
+        )}/>
+        </Drawer>}
         </>
     )
 }

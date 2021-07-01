@@ -4,7 +4,7 @@ const fetchApi = (offset = 0, limit = 100) => {
     .then(data => {
         let products = data.results
 
-        // adding price to data object
+        // adding random price to data object
         let finalProduct = products.map(data => {
             let value = Math.floor(Math.random()*100000);
             let product = data;

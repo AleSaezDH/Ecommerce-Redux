@@ -4,6 +4,7 @@ import DeleteButton from './DeleteButton';
 import EmptyCartButton from './EmptyCartButton';
 import {finishBuy, getProductsFromLocalStorage} from '../Middlewares/cartMdws';
 import {useHistory} from 'react-router-dom';
+import { List, Avatar, Space } from 'antd';
 
 function Cart() {
 
@@ -19,20 +20,22 @@ function Cart() {
         dispatch(finishBuy(cartState));
         history.push('/checkout');
     }
+    
     return (
+        <List itemLayout="vertical" size="large" dataSource={cartState}
+        footer={
         <div>
-            <h1>Carro</h1>
-            {cartState.map(product => {
-                return <div ket={product.id}>
-                    <h2>{product.name}</h2>
-                    <img src={product.picture}/>
-                    <p>{product.quantity}</p>
-                    <p>$ {product.price}</p>
-                    <DeleteButton id={product.id}/>
-                </div>
-            })}
             {cartState.length > 0 && <><EmptyCartButton /> <button onClick={handleClick}>Terminar compra</button></>}
         </div>
+        }
+        renderItem={item => (
+            <List.Item key={item.id}
+                actions={[ <DeleteButton id={item.id}/> ]}
+                extra={<img width={272} src={item.picture} />} >
+                    <List.Item.Meta title={item.name} description={`Cantidad: ${item.quantity}`} />
+                {`$ ${item.price}`}
+            </List.Item>
+        )} />
     )
 }
 
