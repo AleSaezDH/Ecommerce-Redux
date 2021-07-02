@@ -19,8 +19,8 @@ function Cart() {
     }, []);
 
     const handleClick = () => {
-        dispatch(finishBuy(cartState));
         history.push('/checkout');
+        dispatch(finishBuy(cartState));
     }
 
     const amount = cartState.map(value => value.price * value.quantity);
@@ -33,7 +33,7 @@ function Cart() {
         footer={
             <div id={styles.footer}>
                 <Title level={4}>Total: ${total}</Title>
-                {cartState.length > 0 && <div><EmptyCartButton /> <Button type="primary" onClick={handleClick}>Continue</Button></div>}
+                <div><EmptyCartButton /> <Button type="primary" onClick={handleClick}>Continue</Button></div>
             </div>
             }
         renderItem={item => (

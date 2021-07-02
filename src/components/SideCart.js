@@ -17,11 +17,16 @@ function SideCart() {
       dispatch({type: 'sideCart/visibility', payload: false});
     };
 
+    const handleContinueButton = () => {
+        onClose();
+        history.push('/cart');
+    }
+
     return (<>
-        {visibilitySideCart && <Drawer style={{display:'flex', justifyContent:'center'}} title="Cart" placement="right" closable={false} onClose={onClose} visible={visibilitySideCart} width={600} footer={
+        {(visibilitySideCart && cartState.length > 0) && <Drawer style={{display:'flex', justifyContent:'center'}} title="Cart" placement="right" closable={false} onClose={onClose} visible={visibilitySideCart} width={500} footer={
             <div>
               <EmptyCartButton />
-              <Button type='primary' onClick={() => history.push('/cart')} id={styles.continueButton}>Continue</Button>
+              <Button type='primary' onClick={handleContinueButton} id={styles.continueButton}>Continue</Button>
             </div>
           }>
         <List itemLayout="horizontal" dataSource={cartState} renderItem={item => (

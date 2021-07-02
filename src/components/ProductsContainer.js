@@ -8,7 +8,8 @@ import { Button } from 'antd';
 
 function ProductsContainer() {
 
-    const products = useSelector(state => state.products);
+    const state = useSelector(state => state);
+    const {products, loading} = state
     const dispatch = useDispatch();
     const {category} = useParams();
     const {subcategory} = useParams();
@@ -36,7 +37,7 @@ function ProductsContainer() {
 
     return (<div id={styles.productsDiv}>
         <MappingState products={products}/>
-        {(!subcategory && products.length > 0) && <div id={styles.paginationButtons}>
+        {(!subcategory && !loading) && <div id={styles.paginationButtons}>
             {offset >= 20 && <Button type="primary" onClick={handleBackButton}>Previous</Button>}
             {offset < 80 && <Button type="primary" onClick={handleNextButton}>Next</Button>}
         </div>}

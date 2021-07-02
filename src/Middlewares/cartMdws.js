@@ -47,6 +47,7 @@ export const emptyCart = (dispatch) => {
 }
 
 export let idFirebase;
+
 export const finishBuy = (cart) => {
     return async (dispatch) => {
         await db.collection('cart').add({cart}).then(({id}) => idFirebase = id);

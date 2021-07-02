@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import {useSelector} from 'react-redux';
 import styles from '../styles/CommitsHistoryButton.module.css';
 import { Button, Modal, List, Card } from 'antd';
 import { GithubOutlined } from '@ant-design/icons';
@@ -7,9 +8,9 @@ function Test() {
 
     const [showCommit, setShowCommit] = useState([{author: '', message: '', date: '', url: ''}]);
     const [isModalVisible, setIsModalVisible] = useState(false);
+    const loading = useSelector(state => state.loading);
 
     async function getCommits () {
-
         await fetch('https://api.github.com/repos/AleSaezDH/fulltimeforce/commits')
           .then(data => data.json())
           .then(response => setShowCommit(response.map(value => {return {author: value.commit.author.name, message: value.commit.message, date: value.commit.author.date, url: value.html_url}})));
@@ -32,10 +33,10 @@ function Test() {
     };
 
     return (<>
-    <footer id={styles.footer}>
+    {!loading && <footer id={styles.footer}>
 
     <Button type="primary" onClick={handleClick} id={styles.commitsButton}>Commits history</Button>
-    </footer>
+    </footer>}
     <Modal title="Click to see the commit on GitHub" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel} style={{ top:20 }}>
         <List itemLayout="horizontal" dataSource={showCommit} renderItem={item => (
             <Card hoverable id={styles.modalCard}>

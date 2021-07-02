@@ -1,10 +1,13 @@
 import React from 'react';
-import { Redirect, Route } from 'react-router';
+import { Redirect, Route } from 'react-router-dom';
+import {useSelector} from 'react-redux';
 import {idFirebase} from '../Middlewares/cartMdws';
 
 function ConditionalRoute ({component: Component, ...props}) {
 
-    return <Route {...props} render={props => {return idFirebase ? <Component {...props}/> : <Redirect to='/' />}}/>
+    const cart = useSelector(state => state.cart);
+
+    return <Route {...props} render={props => {return (cart.length > 0 || idFirebase) ? <Component {...props}/> : <Redirect to='/' />}}/>
 }
 
 export default ConditionalRoute;
