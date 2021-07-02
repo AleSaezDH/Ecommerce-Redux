@@ -12,7 +12,7 @@ function CartLink() {
     useDispatch(getProductsFromLocalStorage);
 
     useEffect(() => {
-        if (cartState.length != 0) {
+        if (cartState.length !== 0) {
             let productsQuantity = cartState.map(product => product.quantity);
             let total = productsQuantity.reduce((firstValue, secondValue) => {
                 return firstValue + secondValue;
@@ -24,7 +24,7 @@ function CartLink() {
     }, [cartState]);
 
     return <>
-    {totalQuantity > 0 ? <Badge count={totalQuantity} offset={[12]}><Link to='/cart'>Cart</Link></Badge> : <Link to='/cart'>Cart</Link>}
+    {totalQuantity > 0 ? <Link to='/cart'><Badge count={totalQuantity} offset={[12]}>Cart</Badge></Link> : <Link to='/cart'>Cart</Link>}
     </>
 }
 

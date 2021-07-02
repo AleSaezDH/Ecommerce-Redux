@@ -7,7 +7,7 @@ function EmptyCartButton() {
     const dispatch = useDispatch();
 
     return (
-        <Button onClick={() => dispatch(emptyCart)}>Vaciar carrito</Button>
+        <Button onClick={() => dispatch(emptyCart)}>Empty cart</Button>
     )
 }
 

@@ -18,18 +18,19 @@ function Home() {
 
     useEffect(() => {
         dispatch(getAllProducts(offset, limit));
+        // eslint-disable-next-line
     }, []);
 
     return (
         <div>
-            <img src={home} id={styles.logo}/>
+            <img alt='Samsung home' src={home} id={styles.logo}/>
             <div id={styles.divTitles}>
                 <Title level={3} id={styles.bestSellers}>Best Sellers</Title>
                 <Link to='/products'>All products</Link>
             </div>
             <MappingState products={products}/>
             <HomeNavbar />
-            <a href='https://www.samsung.com/ar/' target='_blank' id={styles.samsungHref}>Visit Samsung oficial website</a>
+            <a href='https://www.samsung.com/ar/' target='_blank' rel="noreferrer" id={styles.samsungHref}>Visit Samsung oficial website</a>
         </div>
     )
 }

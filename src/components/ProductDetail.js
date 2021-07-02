@@ -6,6 +6,7 @@ import {addProduct, getProductsFromLocalStorage} from '../Middlewares/cartMdws';
 import ButtonCounter from './ButtonCounter';
 import SideCart from './SideCart';
 import styles from '../styles/ProductDetail.module.css';
+import { LoadingOutlined } from '@ant-design/icons';
 import { Typography, Descriptions  } from 'antd';
 const { Title } = Typography;
 
@@ -25,9 +26,10 @@ function ProductDetail() {
         } else {
             dispatch(getAllProducts(offset, limit));
         }
+        // eslint-disable-next-line
     }, [products]);
     
-    if(product.length === 0) {return <h1>Loading</h1>}
+    if(product.length === 0) {return <LoadingOutlined id={styles.loading}/>}
 
     const productToBuy = (quantity) => {
         const productData = {
@@ -46,13 +48,13 @@ function ProductDetail() {
         <div id={styles.imagesAndCounter}>
             {product.pictures.map((picture, index) => {
                 return <div>
-                    <img key={index} src={picture.url} id={styles.images}/>
+                    <img alt={picture.url} key={index} src={picture.url} id={styles.images}/>
                 </div>
             })}
-            <div>
-                <h3>$ {product.price}</h3>
-                <ButtonCounter productToBuy={productToBuy}/>
-            </div>
+        </div>
+        <div id={styles.divCounter}>
+            <p id={styles.price}>$ {product.price}</p>
+            <ButtonCounter productToBuy={productToBuy}/>
         </div>
         <Descriptions bordered >
             {product.attributes.map(data => {

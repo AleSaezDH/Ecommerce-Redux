@@ -17,7 +17,7 @@ function ProductCard({data}) {
     return (<>
     <Link to={`/products/${data.id}`}>
         <Badge count={<Tag color="#108ee9">{displayResolution}</Tag>} offset={[-50, 275]}>
-            <Card hoverable cover={<img src={data.pictures[0].url} id={styles.img}/>} id={styles.card}>
+            <Card hoverable cover={<img alt={data.name} src={data.pictures[0].url} id={styles.img}/>} id={styles.card}>
                 <Title level={5}>{data.name} {mainColor && <Text type="secondary">- {mainColor}</Text>}</Title>
                 <div id={styles.tagsDiv}>
                     <Tag color="green">{operatingSystem}</Tag>

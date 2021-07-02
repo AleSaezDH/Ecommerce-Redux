@@ -10,7 +10,7 @@ function Test() {
 
     async function getCommits () {
 
-        const response = await fetch('https://api.github.com/repos/AleSaezDH/fulltimeforce/commits')
+        await fetch('https://api.github.com/repos/AleSaezDH/fulltimeforce/commits')
           .then(data => data.json())
           .then(response => setShowCommit(response.map(value => {return {author: value.commit.author.name, message: value.commit.message, date: value.commit.author.date, url: value.html_url}})));
     }
@@ -32,11 +32,14 @@ function Test() {
     };
 
     return (<>
+    <footer id={styles.footer}>
+
     <Button type="primary" onClick={handleClick} id={styles.commitsButton}>Commits history</Button>
+    </footer>
     <Modal title="Click to see the commit on GitHub" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel} style={{ top:20 }}>
         <List itemLayout="horizontal" dataSource={showCommit} renderItem={item => (
             <Card hoverable id={styles.modalCard}>
-            <a target='_blank' href={item.url}>
+            <a target='_blank' rel="noreferrer" href={item.url}>
             <List.Item>
                 <List.Item.Meta title={`Message: ${item.message}`} description={<><p>Author: {item.author}</p> <p>GitHub date: {item.date}</p></>} avatar={<GithubOutlined style={{fontSize: 25, paddingTop: 5}}/>} />
             </List.Item>

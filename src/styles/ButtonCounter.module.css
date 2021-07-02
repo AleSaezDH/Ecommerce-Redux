@@ -1,3 +1,4 @@
 #divCounterContainer {
     display: flex;
+    align-items: center;
 }

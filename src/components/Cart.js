@@ -2,19 +2,20 @@ import React, {useEffect} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import EmptyCartButton from './EmptyCartButton';
 import {finishBuy, getProductsFromLocalStorage, deleteProduct} from '../Middlewares/cartMdws';
-import {useHistory} from 'react-router-dom';
+import {useHistory, Link} from 'react-router-dom';
 import styles from '../styles/Cart.module.css';
-import { List, Button, Typography } from 'antd';
+import { List, Button, Typography, Result } from 'antd';
 const { Title } = Typography;
 
 function Cart() {
 
     const cartState = useSelector(state => state.cart);
-    const dispatch = useDispatch();
     const history = useHistory();
+    const dispatch = useDispatch();
 
     useEffect(() => {
         dispatch(getProductsFromLocalStorage);
+        // eslint-disable-next-line
     }, []);
 
     const handleClick = () => {
@@ -27,18 +28,18 @@ function Cart() {
         return firstValue + secondValue;
     }, 0);
 
-    return (
-        <List itemLayout="horizontal" dataSource={cartState} id={styles.list}
+    return (<>
+        {cartState.length > 0 ? <List itemLayout="horizontal" dataSource={cartState} id={styles.list}
         footer={
             <div id={styles.footer}>
                 <Title level={4}>Total: ${total}</Title>
-                {cartState.length > 0 && <div><EmptyCartButton /> <Button type="primary" onClick={handleClick}>Terminar compra</Button></div>}
+                {cartState.length > 0 && <div><EmptyCartButton /> <Button type="primary" onClick={handleClick}>Continue</Button></div>}
             </div>
             }
         renderItem={item => (
             <List.Item id={styles.listItem}>
                 <List.Item.Meta
-                    avatar={<img src={item.picture} id={styles.cartImage}/>}
+                    avatar={<img alt={item.name} src={item.picture} id={styles.cartImage}/>}
                     title={item.name}
                     description={<div><p>Quantity: {item.quantity}</p> <p>Price: ${item.price}</p></div>}
                 />
@@ -46,6 +47,9 @@ function Cart() {
             </List.Item>
         )}
         />
+        :
+        <Result style={{marginTop:50}} title="Your cart is empty" extra={<Button type="primary" key="console"><Link to='/products'>All products</Link></Button>}/>}
+        </>
     )
 }
 

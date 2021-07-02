@@ -1,6 +1,6 @@
-function loadingReducer (state = [], action) {
+function loadingReducer (state = true, action) {
     switch(action.type) {
-        case 'loading/sitch': return [action.payload];
+        case 'loading/switch': return action.payload;
 
         default: return state;
     }

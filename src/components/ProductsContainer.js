@@ -17,11 +17,13 @@ function ProductsContainer() {
     const limit = 20;
 
     useEffect(() => {
+        dispatch({type: 'loading/switch', payload: true});
         if (category) {
             dispatch(getCategory(category, subcategory, id));
         } else {
             dispatch(getAllProducts(offset, limit));
         }
+        // eslint-disable-next-line
     }, [offset, subcategory, id]);
     
     const handleBackButton = () => {
@@ -34,10 +36,10 @@ function ProductsContainer() {
 
     return (<div id={styles.productsDiv}>
         <MappingState products={products}/>
-        <div id={styles.paginationButtons}>
-            {offset >= 20 && <Button type="primary" onClick={handleBackButton}>Anterior</Button>}
-            {offset < 80 && <Button type="primary" onClick={handleNextButton}>Siguiente</Button>}
-        </div>
+        {(!subcategory && products.length > 0) && <div id={styles.paginationButtons}>
+            {offset >= 20 && <Button type="primary" onClick={handleBackButton}>Previous</Button>}
+            {offset < 80 && <Button type="primary" onClick={handleNextButton}>Next</Button>}
+        </div>}
         </div>
     )
 }

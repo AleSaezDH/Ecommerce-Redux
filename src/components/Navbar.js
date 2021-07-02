@@ -19,7 +19,7 @@ function Navbar() {
       
         <Menu onClick={handleClick} selectedKeys={[current]} mode="horizontal" id={styles.menu}>
           <div id={styles.logoDiv}>
-              <Menu.Item icon={<HomeOutlined />}><Link to='/'>Home</Link></Menu.Item>
+              <Menu.Item><Link to='/'><HomeOutlined /> Home</Link></Menu.Item>
           </div>
 
           <SubMenu key="RAM" icon={<DatabaseOutlined />} title="RAM Memory">

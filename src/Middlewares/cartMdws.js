@@ -8,7 +8,7 @@ export const addProduct = (product) => {
     return async (dispatch, getState) => {
         const cartState = getState().cart;
         const copyState = [...cartState];
-        let exist = copyState.find(data => data.id == product.id);
+        let exist = copyState.find(data => data.id === product.id);
         if (exist) {
             let index = copyState.indexOf(exist);
             let copy = {...exist};
@@ -35,7 +35,7 @@ export const deleteProduct = (id) => {
     return async (dispatch, getState) => {
         const cartState = getState().cart;
         const copyState = [...cartState];
-        let products = copyState.filter(data => data.id != id);
+        let products = copyState.filter(data => data.id !== id);
         await dispatch({type: 'cart/addProduct', payload: products});
         saveOnLocalStorage(products);
     }

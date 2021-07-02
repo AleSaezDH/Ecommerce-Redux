@@ -8,6 +8,7 @@ import Cart from './components/Cart';
 import Checkout from './components/Checkout';
 import Test from './features/GitHubAPI';
 import ConditionalRoute from './components/ConditionalRoute';
+import PageNotFound from './components/PageNotFound';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           <Route exact path='/products/:id' component={ProductDetail}/>
           <Route exact path='/cart' component={Cart}/>
           <ConditionalRoute exact path='/checkout' component={Checkout}/>
+          <Route component={PageNotFound} />
         </Switch>
       <Test />
     </BrowserRouter>

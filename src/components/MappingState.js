@@ -1,10 +1,15 @@
 import React from 'react';
 import ProductCard from './ProductCard';
 import styles from '../styles/MappingState.module.css';
+import {useSelector} from 'react-redux';
+import { LoadingOutlined } from '@ant-design/icons';
 
 function MappingState({products}) {
-    return (
-        <div id={styles.container}>
+
+    const loading = useSelector(state => state.loading);
+
+    return (<>
+        {!loading ? <div id={styles.container}>
         {products.map((product) => {
             return product.results.map((data, index) => {
                 return <>
@@ -13,6 +18,11 @@ function MappingState({products}) {
             });
         })}
         </div>
+        :
+        <div id={styles.loading}>
+            <LoadingOutlined />
+        </div>}
+        </>
     )
 }
 

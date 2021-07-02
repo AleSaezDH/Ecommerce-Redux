@@ -16,7 +16,7 @@ function ButtonCounter({productToBuy}) {
     return (
         <div id={styles.divCounterContainer}>
         <InputNumber size="large" min={1} max={100000} defaultValue={1} onChange={(value) => setQuantity(value)}/>
-        <Button size='large' type="primary" onClick={handleBuy}>Comprar</Button>
+        <Button size='large' type="primary" onClick={handleBuy}>Buy</Button>
         </div>
     )
 }

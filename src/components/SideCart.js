@@ -21,7 +21,7 @@ function SideCart() {
         {visibilitySideCart && <Drawer style={{display:'flex', justifyContent:'center'}} title="Cart" placement="right" closable={false} onClose={onClose} visible={visibilitySideCart} width={600} footer={
             <div>
               <EmptyCartButton />
-              <Button type='primary' onClick={() => history.push('/cart')} id={styles.continueButton}>Continuar</Button>
+              <Button type='primary' onClick={() => history.push('/cart')} id={styles.continueButton}>Continue</Button>
             </div>
           }>
         <List itemLayout="horizontal" dataSource={cartState} renderItem={item => (
@@ -29,9 +29,9 @@ function SideCart() {
                 <Card.Grid id={styles.cardGrid}>
                     <List.Item>
                         <List.Item.Meta
-                            avatar={<img src={item.picture} id={styles.drawerImage}/>}
+                            avatar={<img alt={item.name} src={item.picture} id={styles.drawerImage}/>}
                             title={item.name}
-                            description={`cantidad: ${item.quantity}`}
+                            description={`Quantity: ${item.quantity}`}
                         />
                         <DeleteButton id={item.id}/>
                     </List.Item>
