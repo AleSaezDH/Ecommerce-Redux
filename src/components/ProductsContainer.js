@@ -38,8 +38,8 @@ function ProductsContainer() {
     return (<div id={styles.productsDiv}>
         <MappingState products={products}/>
         {(!subcategory && !loading) && <div id={styles.paginationButtons}>
-            {offset >= 20 && <Button type="primary" onClick={handleBackButton}>Previous</Button>}
-            {offset < 80 && <Button type="primary" onClick={handleNextButton}>Next</Button>}
+            {offset >= 20 && <Button type="primary" style={{width:100}} onClick={handleBackButton}>Previous</Button>}
+            {offset < 80 && <Button type="primary" style={{width:100}} onClick={handleNextButton}>Next</Button>}
         </div>}
         </div>
     )
