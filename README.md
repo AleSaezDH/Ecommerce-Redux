@@ -1,70 +1,27 @@
-# Getting Started with Create React App
+# Full Time Force test by Alejandro Sáez
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Instructions to run the app
 
-## Available Scripts
+### Open https://github.com/AleSaezDH/fulltimeforce
 
-In the project directory, you can run:
+### Click on Code (beside Add file) and download ZIP
 
-### `npm start`
+### When finished downloading, extract it
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### Open the unzipped folder (you should see folders called build, node_modules, public and src), right click, open with Visual Studio Code
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+### Once inside, open a new terminal (in the top bar) and run npm install
 
-### `npm test`
+### When finished installing dependencies run npm start
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### It automatically opens the default browser, sometimes it takes a while so wait for it to open
 
-### `npm run build`
+### If it doesn´t open by itself, open the browser manually and search for http://localhost:3000/
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## GitHub repository: https://github.com/AleSaezDH/fulltimeforce
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Deploy link: 
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## What did i do?
 
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+First of all I started working on the principal objetive of the test so I used the github link you gave me and looked for the right endpoint to get the information of all my commits and the specific repository (here: https://docs.github.com/en/rest/reference/repos#list-commits). When I found it just replace the default values with mine so that's how I was able to get the commits history. Then I decided the idea of the app and starting building it. I tried to compartmentalize the code and reuse components. I wanted to create something using Apis and found Samsung's products provided by Mercado Libre so this is the reason why the information is in spanish, couldn't change it. Already with the idea of developing an ecommerce I thought it was a good plan to save the cart somewhere so decided to use Firebase for that, like my database. Also considering it would have a general state (for products, cart and loadings) I used Redux for manage it. In case the page refreshes at any time I decided to save the products cart on localStorage so a reloaded wouldn't be a problem, the cart would not be reseted. When the user bought something, it saves on Firebase and return an id (wich is the purchase id using to search that purchase, thinking in a real ecommerce). At all time you have a button on the bottom of the page to see all the commits and if you click on them it takes you to github page. Also I created a view to nonexistent url and if the user goes to the checkout path he will get an 404 view. About the styles, I used Ant Design Framework and tried to create a scalable app so that's why all the extra CSS is in diferents files even if they are small.
